@@ -8,7 +8,9 @@
     "lint": "turbo lint",
     "format": "turbo format",
     "typecheck": "turbo typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "syncpack:lint": "syncpack lint",
+    "syncpack:fix": "syncpack fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
@@ -19,8 +21,9 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "syncpack": "^14.3.0",
     "turbo": "^2.8.17",
-    "typescript": "5.9.3"
+    "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@9.15.9",
   "engines": {
