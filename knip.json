@@ -1,0 +1,35 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreFiles": [".eslintrc.js"],
+  "ignoreIssues": {
+    "packages/typescript-config/nextjs.json": ["unresolved"]
+  },
+  "workspaces": {
+    ".": {
+      "ignoreDependencies": ["@workspace/eslint-config"]
+    },
+    "apps/web": {
+      "ignoreDependencies": [
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "@tailwindcss/postcss"
+      ]
+    },
+    "packages/ui": {
+      "ignoreDependencies": [
+        "@hugeicons/core-free-icons",
+        "@hugeicons/react",
+        "@tailwindcss/postcss",
+        "@turbo/gen",
+        "next-themes",
+        "zod"
+      ]
+    },
+    "packages/eslint-config": {
+      "ignoreDependencies": [
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser"
+      ]
+    }
+  }
+}
