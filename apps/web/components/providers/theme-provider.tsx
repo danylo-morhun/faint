@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
+import { isTypingTarget } from "@/lib/keyboard"
 
 function ThemeProvider({
   children,
@@ -21,21 +22,19 @@ function ThemeProvider({
   )
 }
 
-function isTypingTarget(target: EventTarget | null) {
-  if (!(target instanceof HTMLElement)) {
-    return false
-  }
+function useThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme()
 
-  return (
-    target.isContentEditable ||
-    target.tagName === "INPUT" ||
-    target.tagName === "TEXTAREA" ||
-    target.tagName === "SELECT"
-  )
+  return React.useCallback(() => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark")
+  }, [resolvedTheme, setTheme])
 }
 
 function ThemeHotkey() {
-  const { resolvedTheme, setTheme } = useTheme()
+  const toggleTheme = useThemeToggle()
+  const toggleThemeRef = React.useRef(toggleTheme)
+
+  toggleThemeRef.current = toggleTheme
 
   React.useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -55,7 +54,7 @@ function ThemeHotkey() {
         return
       }
 
-      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+      toggleThemeRef.current()
     }
 
     window.addEventListener("keydown", onKeyDown)
@@ -63,9 +62,9 @@ function ThemeHotkey() {
     return () => {
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [resolvedTheme, setTheme])
+  }, [])
 
   return null
 }
 
-export { ThemeProvider }
+export { ThemeProvider, useThemeToggle }
